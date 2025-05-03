@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Andrew Lyon – CV</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: #ffffff;
+    color: #111;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* Logo styling */
+nav img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 1.5rem;
+}
+
+/* Fixed width for nav */
+nav {
+  width: 250px;
+  min-width: 250px; /* This prevents shrinking */
+  background-color: #f4f4f4;
+  border-right: 1px solid #ddd;
+  padding: 2rem 1rem;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+
+  nav h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  nav ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  nav li {
+    margin: 0.3rem 0;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 300;
+    font-size: 0.95rem;
+  }
+
+  nav a:hover {
+    color: #000;
+  }
+
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    padding: 2rem;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+
+  header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  header p {
+    font-weight: 300;
+    font-size: 1.1rem;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    padding: 2rem;
+  }
+
+  .project {
+    border: 1px solid #eee;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    transition: box-shadow 0.3s;
+  }
+
+  .project:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .project img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .project h3 {
+    margin-top: 0.5rem;
+    font-weight: 500;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.9rem;
+    color: #888;
+    border-top: 1px solid #ddd;
+  }
+
+  .resume-section {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    padding: 2rem;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .resume-title h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .resume-content p {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* Mobile View */
+  @media (max-width: 768px) {
+    body {
+      flex-direction: column;
+    }
+
+    nav {
+      width: 100%;
+      height: auto;
+      position: relative;
+      border-right: none;
+      border-bottom: 1px solid #ddd;
+    }
+
+    main {
+      width: 100%;
+    }
+
+    .resume-section {
+      grid-template-columns: 1fr;
+    }
+  }
+
+    /* Modal Styles */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 2rem;
+      max-width: 600px;
+      width: 90%;
+      border-radius: 8px;
+      position: relative;
+    }
+    .modal-content img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 1rem;
+    }
+    .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Image Carousel Styles */
+.image-carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-images {
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+}
+
+.carousel-images img {
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.carousel-prev, .carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.7);
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+  z-index: 2;
+}
+
+.carousel-prev {
+  left: 10px;
+}
+
+.carousel-next {
+  right: 10px;
+}
+
+.carousel-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dot.active {
+  background: white;
+}
+
+/* Updated modal styles for multi-image support */
+.modal-content .image-carousel {
+  max-width: 100%;
+  margin-bottom: 1rem;
+}
+
+  </style>
+
+</head>
+<body>
+  <nav>
+    <img src="images/logo_3.0.png" alt="smilodon_skull">
+	<h2><strong><a href="index.html">Home</a></h2>
+    <h2>Picture Books & Narrative Illustration</h2>
+    <ul>
+      <li><a href="index.html#thefirefly">The Firefly</a></li>
+      <li><a href="index.html#clark">Clark The Crocodile</a></li>
+      <li><a href="index.html#treasurehunt">The Grand Treasure Hunt</a></li>
+    </ul>
+    <h2>Dinosaurs & Educational Books</h2>
+    <ul>
+      <li><a href="index.html#iknow">I Know A Dinosaur</a></li>
+      <li><a href="index.html#ifyousee">If You See A Dinosaur...</a></li>
+      <li><a href="index.html#abc">Dinosaur ABC's</a></li>
+      <li><a href="index.html#alaska">Alaska’s Dinosaurs</a></li>
+      <li><a href="index.html#fieldnotebook">Junior Conductor Field Notebook</a></li>
+    </ul>
+    <h2>Seasonal & Cultural Stories</h2>
+    <ul>
+      <li><a href="index.html#iceland">Icelandic Christmas</a></li>
+      <li><a href="index.html#advent">Advent Storybook</a></li>
+      <li><a href="index.html#mangotree">Tales from the Mango Tree</a></li>
+    </ul>
+    <h2>Design & Branding</h2>
+    <ul>
+      <li><a href="index.html#nynelives">NYNLIVES Logo</a></li>
+    </ul>
+    <h2>Work History</h2>
+    <ul>
+      <li><a href="cv.html">CV</a></li>
+      <li><a href="resume.html">Resume</a></li>
+    </ul>
+    <h2>Contact</h2>
+    <ul>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  <main>
+    <header>
+      <h1>Andrew Lyon</h1>
+      <p>Visual Designer • Illustrator • Creative Thinker</p>
+    </header>
+
+    <section class="resume-section">
+  <div class="resume-title">
+    <h3>Curriculum Vitae</h3>
+  </div>
+  <div class="resume-content">
+        <p><strong>Andrew Lyon</strong><br>
+		Creative Professional | Children's Author & Illustrator | Tourism Management<br>
+		Anchorage, AK | <a href="mailto:andrewjosephlyon@gmail.com">andrewjosephlyon@gmail.com</a> | <a href="sms:8084763532">+1 808 476 3532</a><br>
+          LinkedIn: <a href="https://www.linkedin.com/in/smilodonlyon">www.linkedin.com/in/smilodonlyon</a><br>
+		  Portfolio: <a href="http://alyondesigner.myportfolio.com">alyondesigner.myportfolio.com</a>
+
+    <p><strong>Professional Summary</strong><br>
+    Versatile hospitality and tourism professional with 10+ years of leadership experience. Demonstrated success in elevating guest services through innovative operational strategies. Published children's book author and illustrator who brings creative storytelling and design expertise to team management. Emergency response certified, with a strategic approach to solving complex operational challenges.</p>
+
+    <p><strong>Work Experience</strong></p>
+
+    <p><strong>Manager, Guest Services</strong><br>
+    Alaska Railroad – Anchorage, AK | May 2022 – Present<br>
+    - Orchestrated performance optimization for contracted guest services, driving 95% customer satisfaction ratings<br>
+    - Redesigned staff training curriculum, resulting in 40% improvement in team efficiency<br>
+    - Strategically mediated cross-departmental communication to streamline operational workflows<br>
+    - Ensure exceptional customer experiences, coordinate team efforts to meet operational goals<br>
+    - Maintain compliance with service standards<br>
+    - Lead initiatives to enhance service delivery, resolve escalated customer concerns</p>
+
+    <p><strong>Onboard Supervisor</strong><br>
+    Alaska Railroad – Anchorage, AK | April 2006 – October 2022<br>
+    - Directed comprehensive onboard operations, managing tour guides and contractor services<br>
+    - Implemented proactive customer resolution protocols, reducing escalation incidents by 35%<br>
+    - Developed and executed end-to-end staff onboarding and development programs<br>
+    - Supervised daily On Board Services operations<br>
+    - Maintained safe environment for all guests and rail crew<br>
+    - Resolved customer service, personnel, computer, and maintenance issues<br>
+    - Coordinated boarding and disembarking of guests<br>
+    - Promoted teamwork and positive relationships with crew members and Tour Guides</p>
+
+    <p><strong>Dinosaur Supervisor (Tour Driver)</strong><br>
+    Kualoa Ranch Hawaii – Kaaawa, HI | January 2018 – April 2021<br>
+    - Conceptualized and executed multimedia tour presentations, increasing guest engagement by 60%<br>
+    - Reimagined tour narratives to blend educational content with immersive storytelling<br>
+    - Facilitated seamless production support for on-location studio filming<br>
+    - Developed interactive multimedia presentations with embedded video files<br>
+    - Designed forms for vehicle maintenance and upkeep<br>
+    - Assisted in developing standard operating procedures for expanding fleet</p>
+
+    <p><strong>Sales Associate/Cashier</strong><br>
+    The North Face – Anchorage, AK | October 2016 – October 2017<br>
+    - Led store team in statistical breakdowns of sales goals<br>
+    - Prioritized exceptional customer brand service<br>
+    - Actively used SUMMIT Selling Skills to meet sales objectives<br>
+    - Increased sales through Clientele Development Program<br>
+    - Contributed to team's working environment by adhering to company policies</p>
+
+    <p><strong>Prep Cook/Line Cook/Kitchen Manager in Training</strong><br>
+    Chipotle Mexican Grill – Mesquite, TX | 2015 – 2016<br>
+    - Maintained food preparation processes including cooking, marinating, and seasoning<br>
+    - Completed food preparation assignments accurately and timely<br>
+    - Maintained appropriate portion control and food levels<br>
+    - Ensured compliance with food handling, safety, and sanitation standards</p>
+
+    <p><strong>Graphic Designer</strong><br>
+    The Alaska Club – Anchorage, AK | 2014 – 2015<br>
+    - Built advertising campaigns and department web pages from scratch<br>
+    - Conducted campaign planning, competitive analysis, and keyword research<br>
+    - Developed visually dynamic banner ads and web pages<br>
+    - Provided graphic design and web development support across departments<br>
+    - Demonstrated proficiency in Adobe Suite, HTML, CSS, and JavaScript</p>
+
+    <p><strong>Web Marketing Coordinator</strong><br>
+    Brigham Young University – Hawaii | 2012 – 2013<br>
+    - Designed, produced, and maintained print and digital media for 20+ departments<br>
+    - Created print-ready materials including flyers, posters, and newsletters<br>
+    - Built web pages and website content<br>
+    - Maintained established graphic design guidelines<br>
+    - Participated in department meetings for advertising ideation</p>
+
+    <p><strong>Multimedia Journalist and Layout Artist</strong><br>
+    Ke Alaka'i Campus Newsletter – Laie, HI | 2010 – 2013<br>
+    - Awarded 5th Place: Multimedia Story of the Year (2012)<br>
+    - Implemented Adobe InDesign templates for monthly publications<br>
+    - Conducted research and wrote stories<br>
+    - Reviewed and edited content<br>
+    - Designed layouts based on design principles</p>
+
+    <p><strong>Additional Professional Roles</strong><br>
+    - Instructional & Media Systems Lighting Technician, Brigham Young University (2010-2013)<br>
+    - General Manager, Pedersen Worldwide (2012)<br>
+    - Bartender/Host, ESS Compass Group (2010)<br>
+    - Assistant Sushi Chef/Prep Cook, Wasabi Sushi Bar (2009-2010)<br>
+    - Service Representative/Outside Sales, The Church of Jesus Christ of Latter-day Saints (2006-2008)</p>
+
+    <p><strong>Education</strong><br>
+    BFA in Graphic Design<br>
+    Brigham Young University – Hawaii | 2009 – 2013</p>
+
+    <p><strong>Certifications</strong><br>
+    - FEMA IS-100: Introduction to Incident Command System<br>
+    - FEMA IS-200: Basic Incident Command System<br>
+    - FEMA IS-700: National Incident Management System (NIMS)<br>
+    - FEMA IS-800: National Response Framework</p>
+
+    <p><strong>Key Skills</strong><br>
+    - Strategic Team Leadership<br>
+    - Operational Performance Optimization<br>
+    - Creative Problem Resolution<br>
+    - Multimedia Storytelling<br>
+    - Guest Experience Management<br>
+    - Design and Visual Communication<br>
+    - Graphic Design<br>
+    - Adobe Creative Suite<br>
+    - Web Design<br>
+    - Illustration<br>
+    - Copywriting</p>
+
+    <p><strong>Awards & Publications</strong><br>
+    - Author of I Know a Dinosaur and The Grand Adventure (Children's Books)<br>
+    - 5th Place: Multimedia Story of the Year – Associated Collegiate Press (2012)<br>
+    - Proficient in Graphic Design (Indeed Assessment, September 2019)</p>
+
+    <p><strong>Additional Languages</strong><br>
+    - Icelandic (2 years)</p>
+
+    <p><strong>Professional Attributes</strong><br>
+    - Willing to relocate: Anywhere<br>
+    - Authorized to work in the US for any employer</p>
+
+    <p><strong>References</strong><br>
+    Available upon request</p>
+    </div>
+	
+	</section>
+
+    <footer>
+      <p>&copy; 2025 Andrew Lyon. All rights reserved.</p>
+    </footer>
+  </main>
+</body>
+</html>

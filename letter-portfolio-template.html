@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Andrew Lyon - Portfolio Template (11x8.5)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #ffffff;
+      color: #111;
+      max-width: 1056px; /* 11 inches at 96dpi */
+      margin: 0 auto;
+    }
+    
+    .page {
+      width: 1056px; /* 11 inches */
+      height: 816px; /* 8.5 inches */
+      position: relative;
+      page-break-after: always;
+      overflow: hidden;
+    }
+    
+    .trifold {
+      display: flex;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .panel {
+      width: 33.33%;
+      padding: 36px;
+      position: relative;
+    }
+    
+    .panel.left, .panel.middle {
+      border-right: 1px dashed #ccc;
+    }
+    
+    .cover {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      text-align: center;
+    }
+    
+    .cover h1 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    
+    .cover p {
+      font-size: 16px;
+      font-weight: 300;
+    }
+    
+    .back {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+    
+    .contact-info {
+      margin-bottom: 24px;
+    }
+    
+    .contact-info h2 {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+    
+    .contact-info p {
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+    
+    .qr-code {
+      width: 100px;
+      height: 100px;
+      background-color: #f4f4f4;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      text-align: center;
+    }
+    
+    .bio {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .bio h2 {
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+    
+    .bio p {
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    
+    .featured {
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    .featured h2 {
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+    
+    .mini-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    
+    .mini-project {
+      display: flex;
+      border: 1px solid #eee;
+      padding: 8px;
+      background-color: #f9f9f9;
+    }
+    
+    .mini-img {
+      width: 80px;
+      height: 80px;
+      background-color: #ddd;
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+    
+    .mini-content {
+      flex: 1;
+    }
+    
+    .mini-content h3 {
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+    
+    .mini-content p {
+      font-size: 12px;
+    }
+    
+    .fold-lines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    
+    .fold-line-1 {
+      position: absolute;
+      top: 0;
+      left: 33.33%;
+      width: 0;
+      height: 100%;
+      border-left: 2px dashed #ccc;
+    }
+    
+    .fold-line-2 {
+      position: absolute;
+      top: 0;
+      left: 66.66%;
+      width: 0;
+      height: 100%;
+      border-left: 2px dashed #ccc;
+    }
+    
+    .print-marks {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    
+    .crop-mark {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-style: solid;
+      border-color: #ccc;
+      border-width: 0;
+    }
+    
+    .crop-mark.top-left {
+      top: 8px;
+      left: 8px;
+      border-top-width: 1px;
+      border-left-width: 1px;
+    }
+    
+    .crop-mark.top-right {
+      top: 8px;
+      right: 8px;
+      border-top-width: 1px;
+      border-right-width: 1px;
+    }
+    
+    .crop-mark.bottom-left {
+      bottom: 8px;
+      left: 8px;
+      border-bottom-width: 1px;
+      border-left-width: 1px;
+    }
+    
+    .crop-mark.bottom-right {
+      bottom: 8px;
+      right: 8px;
+      border-bottom-width: 1px;
+      border-right-width: 1px;
+    }
+    
+    .bleed-warning {
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 8px;
+      color: #999;
+    }
+    
+    footer {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      font-size: 10px;
+      color: #888;
+    }
+    
+    @media print {
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      
+      .print-marks, .bleed-warning {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Page 1: Outside -->
+  <div class="page">
+    <div class="trifold">
+      <!-- Back Panel (Left) -->
+      <div class="panel left back">
+        <div class="contact-info">
+          <h2>Contact</h2>
+          <p><strong>Andrew Lyon</strong><br>
+            andrewjosephlyon@gmail.com<br>
+            808-476-3532</p>
+        </div>
+        
+        <div>
+          <div class="qr-code">
+            <p>QR Code to<br>Digital Portfolio</p>
+          </div>
+          <p style="font-size: 12px;">Scan to visit my full online portfolio</p>
+        </div>
+        
+        <footer>&copy; 2025 Andrew Lyon</footer>
+      </div>
+      
+      <!-- Middle Panel -->
+      <div class="panel middle">
+        <!-- Intentionally blank or for additional info -->
+      </div>
+      
+      <!-- Cover Panel (Right) -->
+      <div class="panel right cover">
+        <h1>Andrew Lyon</h1>
+        <p>Visual Designer • Illustrator • Creative Thinker</p>
+      </div>
+    </div>
+    
+    <!-- Print Marks -->
+    <div class="print-marks">
+      <div class="crop-mark top-left"></div>
+      <div class="crop-mark top-right"></div>
+      <div class="crop-mark bottom-left"></div>
+      <div class="crop-mark bottom-right"></div>
+      <div class="fold-lines">
+        <div class="fold-line-1"></div>
+        <div class="fold-line-2"></div>
+      </div>
+      <div class="bleed-warning">Allow 0.125" bleed when printing</div>
+    </div>
+  </div>
+  
+  <!-- Page 2: Inside -->
+  <div class="page">
+    <div class="trifold">
+      <!-- Bio Panel (Left) -->
+      <div class="panel left bio">
+        <h2>About Me</h2>
+        <p>I'm a versatile hospitality and tourism professional with over 10 years of leadership experience. My background in creative storytelling and design brings a unique perspective to team management and guest experiences.</p>
+        <p>As a published children's book author and illustrator, I combine artistic vision with strategic operational expertise to create meaningful connections.</p>
+        <p>My work spans from illustration and graphic design to tourism management and emergency response certification.</p>
+      </div>
+      
+      <!-- Featured Work Panel (Middle) -->
+      <div class="panel middle featured">
+        <h2>Featured Work</h2>
+        <div class="mini-grid">
+          <div class="mini-project">
+            <div class="mini-img"></div>
+            <div class="mini-content">
+              <h3>The Firefly</h3>
+              <p>A heartfelt tale of curiosity and light</p>
+            </div>
+          </div>
+          
+          <div class="mini-project">
+            <div class="mini-img"></div>
+            <div class="mini-content">
+              <h3>I Know A Dinosaur</h3>
+              <p>A rhyming intro to prehistoric giants</p>
+            </div>
+          </div>
+          
+          <div class="mini-project">
+            <div class="mini-img"></div>
+            <div class="mini-content">
+              <h3>Icelandic Christmas</h3>
+              <p>Stories and traditions from Iceland</p>
+            </div>
+          </div>
+          
+          <div class="mini-project">
+            <div class="mini-img"></div>
+            <div class="mini-content">
+              <h3>Junior Conductor Field Notebook</h3>
+              <p>Interactive educational workbook</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Portfolio Grid Panel (Right) -->
+      <div class="panel right">
+        <h2>Portfolio Categories</h2>
+        <ul style="list-style: none; margin-bottom: 24px;">
+          <li style="margin: 8px 0; font-weight: 500;">Picture Books & Illustration</li>
+          <li style="margin: 8px 0; font-weight: 500;">Dinosaurs & Educational Books</li>
+          <li style="margin: 8px 0; font-weight: 500;">Seasonal & Cultural Stories</li>
+          <li style="margin: 8px 0; font-weight: 500;">Design & Branding</li>
+        </ul>
+        
+        <h2>Experience</h2>
+        <p style="font-size: 14px; margin-bottom: 8px;"><strong>Guest Services Manager</strong><br>
+           The Alaska Railroad</p>
+        <p style="font-size: 14px; margin-bottom: 8px;"><strong>OnBoard Supervisor</strong><br>
+           The Alaska Railroad</p>
+        <p style="font-size: 14px;"><strong>Dinosaur Supervisor</strong><br>
+           Kualoa Ranch Hawaii</p>
+      </div>
+    </div>
+    
+    <!-- Print Marks -->
+    <div class="print-marks">
+      <div class="crop-mark top-left"></div>
+      <div class="crop-mark top-right"></div>
+      <div class="crop-mark bottom-left"></div>
+      <div class="crop-mark bottom-right"></div>
+      <div class="fold-lines">
+        <div class="fold-line-1"></div>
+        <div class="fold-line-2"></div>
+      </div>
+      <div class="bleed-warning">Allow 0.125" bleed when printing</div>
+    </div>
+  </div>
+</body>
+</html>

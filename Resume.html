@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Andrew Lyon – Resume</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: #ffffff;
+    color: #111;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* Logo styling */
+nav img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 1.5rem;
+}
+
+/* Fixed width for nav */
+nav {
+  width: 250px;
+  min-width: 250px; /* This prevents shrinking */
+  background-color: #f4f4f4;
+  border-right: 1px solid #ddd;
+  padding: 2rem 1rem;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+
+  nav h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  nav ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  nav li {
+    margin: 0.3rem 0;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 300;
+    font-size: 0.95rem;
+  }
+
+  nav a:hover {
+    color: #000;
+  }
+
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    padding: 2rem;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+
+  header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  header p {
+    font-weight: 300;
+    font-size: 1.1rem;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    padding: 2rem;
+  }
+
+  .project {
+    border: 1px solid #eee;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    transition: box-shadow 0.3s;
+  }
+
+  .project:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .project img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .project h3 {
+    margin-top: 0.5rem;
+    font-weight: 500;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.9rem;
+    color: #888;
+    border-top: 1px solid #ddd;
+  }
+
+  .resume-section {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    padding: 2rem;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .resume-title h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .resume-content p {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* Mobile View */
+  @media (max-width: 768px) {
+    body {
+      flex-direction: column;
+    }
+
+    nav {
+      width: 100%;
+      height: auto;
+      position: relative;
+      border-right: none;
+      border-bottom: 1px solid #ddd;
+    }
+
+    main {
+      width: 100%;
+    }
+
+    .resume-section {
+      grid-template-columns: 1fr;
+    }
+  }
+
+    /* Modal Styles */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 2rem;
+      max-width: 600px;
+      width: 90%;
+      border-radius: 8px;
+      position: relative;
+    }
+    .modal-content img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 1rem;
+    }
+    .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Image Carousel Styles */
+.image-carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-images {
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+}
+
+.carousel-images img {
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.carousel-prev, .carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.7);
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+  z-index: 2;
+}
+
+.carousel-prev {
+  left: 10px;
+}
+
+.carousel-next {
+  right: 10px;
+}
+
+.carousel-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dot.active {
+  background: white;
+}
+
+/* Updated modal styles for multi-image support */
+.modal-content .image-carousel {
+  max-width: 100%;
+  margin-bottom: 1rem;
+}
+
+  </style>
+
+</head>
+<body>
+  <nav>
+    <img src="images/logo_3.0.png" alt="smilodon_skull">
+	<h2><strong><a href="index.html">Home</a></h2>
+    <h2>Picture Books & Narrative Illustration</h2>
+    <ul>
+      <li><a href="index.html#thefirefly">The Firefly</a></li>
+      <li><a href="index.html#clark">Clark The Crocodile</a></li>
+      <li><a href="index.html#treasurehunt">The Grand Treasure Hunt</a></li>
+    </ul>
+    <h2>Dinosaurs & Educational Books</h2>
+    <ul>
+      <li><a href="index.html#iknow">I Know A Dinosaur</a></li>
+      <li><a href="index.html#ifyousee">If You See A Dinosaur...</a></li>
+      <li><a href="index.html#abc">Dinosaur ABC's</a></li>
+      <li><a href="index.html#alaska">Alaska’s Dinosaurs</a></li>
+      <li><a href="index.html#fieldnotebook">Junior Conductor Field Notebook</a></li>
+    </ul>
+    <h2>Seasonal & Cultural Stories</h2>
+    <ul>
+      <li><a href="index.html#iceland">Icelandic Christmas</a></li>
+      <li><a href="index.html#advent">Advent Storybook</a></li>
+      <li><a href="index.html#mangotree">Tales from the Mango Tree</a></li>
+    </ul>
+    <h2>Design & Branding</h2>
+    <ul>
+      <li><a href="index.html#nynelives">NYNLIVES Logo</a></li>
+    </ul>
+    <h2>Work History</h2>
+    <ul>
+      <li><a href="cv.html">CV</a></li>
+      <li><a href="resume.html">Resume</a></li>
+    </ul>
+    <h2>Contact</h2>
+    <ul>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  <main>
+    <header>
+      <h1>Andrew Lyon</h1>
+      <p>Visual Designer • Illustrator • Creative Thinker</p>
+    </header>
+
+  <section class="resume-section">
+  <div class="resume-title">
+    <h3>Resume</h3>
+  </div>
+  <div class="resume-content">
+        <p><strong>Andrew Lyon</strong><br>
+		Creative Professional | Children's Author & Illustrator | Tourism Management<br>
+		Anchorage, AK | <a href="mailto:andrewjosephlyon@gmail.com">andrewjosephlyon@gmail.com</a> | <a href="sms:8084763532">+1 808 476 3532</a><br>
+          LinkedIn: <a href="https://www.linkedin.com/in/smilodonlyon">www.linkedin.com/in/smilodonlyon</a><br>
+		  Portfolio: <a href="http://alyondesigner.myportfolio.com">alyondesigner.myportfolio.com</a>
+
+    <p><strong>Professional Summary</strong><br>
+    Strategic operations leader with extensive experience in tourism and hospitality management, including 3+ years at Kualoa Ranch Hawaii. Proven track record in enhancing guest experiences and developing standardized procedures. Adept at staff supervision, crisis management, and maintaining exceptional service standards while optimizing operational efficiency. Excited to return to Kualoa Ranch to drive operational excellence in the Jurassic Tours Department.</p>
+
+    <p><strong>Relevant Experience</strong></p>
+
+    <p><strong>Manager, Guest Services</strong><br>
+    The Alaska Railroad | Anchorage, AK | April 2023 - Present<br>
+    - Lead multi-department collaboration across stations, reservations, baggage operations, and onboard services to deliver seamless guest experiences<br>
+    - Develop and implement customer service policies, process improvements, and staff training programs<br>
+    - Manage daily operations including staff assignments, tour schedules, and emergency response protocols<br>
+    - Drive strategic initiatives in partnership with executives and external tourism stakeholders<br>
+    - Oversee financial planning and budget allocation to optimize operational efficiency and enhance profitability</p>
+
+    <p><strong>OnBoard Superhero (Supervisor)</strong><br>
+    The Alaska Railroad | Anchorage, AK | November 2005 - April 2023<br>
+    - Directed daily Onboard Services operations, supervising Tour Guides and contractor service teams<br>
+    - Conducted daily staff briefings and coordinated complex operational workflows<br>
+    - Trained and mentored onboard staff, fostering service excellence and emergency preparedness<br>
+    - Resolved customer service issues promptly while maintaining operational continuity<br>
+    - Spearheaded service improvement initiatives that elevated guest satisfaction ratings</p>
+
+    <p><strong>Dinosaur Supervisor (Tour Driver)</strong><br>
+    Kualoa Ranch Hawaii, Inc. | Kaaawa, HI | January 2018 - May 2021<br>
+    - Designed and implemented an interactive multimedia tour experience that elevated guest engagement<br>
+    - Established vehicle maintenance protocols and documentation systems to streamline fleet operations<br>
+    - Ensured all vehicle operations complied with D.O.T. standards and safety requirements<br>
+    - Optimized tour routes and narration for enhanced storytelling and factual accuracy<br>
+    - Collaborated with film production teams on location shoots, contributing to successful productions<br>
+    - Assisted in developing standard operating procedures for an expanding fleet and increasing customer volume</p>
+
+    <p><strong>Education</strong><br>
+    Bachelor of Fine Arts in Graphic Design<br>
+    Brigham Young University-Hawaii</p>
+
+    <p><strong>Certifications</strong><br>
+    - IS-00700.b: An Introduction to the National Incident Management System<br>
+    - IS-00100.c: Introduction to Incident Command Systems, ICS-100<br>
+    - IS-00200.c: Basic Incident Command System for Initial Response<br>
+    - IS-00800.d: National Response Framework, An Introduction</p>
+
+    <p><strong>Key Skills & Qualifications</strong><br>
+    - Staff Leadership & Development: 10+ years experience in supervising, training, and mentoring service teams<br>
+    - Fleet Management: Extensive experience with vehicle maintenance oversight and D.O.T. compliance<br>
+    - Standard Operating Procedures: Proven record of developing and implementing operational protocols<br>
+    - Crisis Management: Certified in emergency response with practical experience in high-pressure situations<br>
+    - Software Proficiency: Microsoft Office Suite (Word, Excel, Outlook), Adobe Creative Suite<br>
+    - Guest Experience Design: Specialized expertise in crafting memorable tourism experiences</p>
+    </div>
+	
+	</section>
+
+    <footer>
+      <p>&copy; 2025 Andrew Lyon. All rights reserved.</p>
+    </footer>
+  </main>
+</body>
+</html>
